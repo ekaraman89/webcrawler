@@ -1,11 +1,11 @@
-/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.csprojAssemblyReference.cache
-/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.csproj.CoreCompileInputs.cache
-/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.AssemblyInfoInputs.cache
-/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.AssemblyInfo.cs
 /home/emrah/Masaüstü/webcrawler/bin/Debug/netcoreapp2.1/webcrawler.deps.json
 /home/emrah/Masaüstü/webcrawler/bin/Debug/netcoreapp2.1/webcrawler.runtimeconfig.json
 /home/emrah/Masaüstü/webcrawler/bin/Debug/netcoreapp2.1/webcrawler.runtimeconfig.dev.json
 /home/emrah/Masaüstü/webcrawler/bin/Debug/netcoreapp2.1/webcrawler.dll
 /home/emrah/Masaüstü/webcrawler/bin/Debug/netcoreapp2.1/webcrawler.pdb
+/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.csprojAssemblyReference.cache
+/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.csproj.CoreCompileInputs.cache
+/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.AssemblyInfoInputs.cache
+/home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.AssemblyInfo.cs
 /home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.dll
 /home/emrah/Masaüstü/webcrawler/obj/Debug/netcoreapp2.1/webcrawler.pdb

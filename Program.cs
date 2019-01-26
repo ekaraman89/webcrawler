@@ -7,40 +7,42 @@ namespace webcrawler
 {
     class Program
     {
-      static void Main(string[] args)
+        static void Main(string[] args)
         {
 
-            string[] articles = {
-                "/yazarlar/guneri-civaoglu/putin-den-karsi-kart--2817067/"
-            };
+            string path = "links.txt";
+            string[] articles = File.ReadAllLines(path);
+            File.WriteAllText(path, String.Empty);
 
-            int index = 1;
-            foreach (var item in articles)
+            while (true)
             {
-                string text = null;
-                try
+                foreach (var item in articles)
                 {
-                    text = GetResponse("http://www.milliyet.com.tr" + item.Trim());
-                    index++;
-                }
-                catch (Exception)
-                {
-                    continue;
-                }
+                    string text = null;
+                    try
+                    {
+                        text = GetResponse(item.Trim());
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
 
-                 if (!string.IsNullOrWhiteSpace(text))
-                 {
-                    string category= GetCategory(text);
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        string category = GetCategory(text);
 
-                     text = GetPlainTextFromHtml(text);
-                     text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
-                     WriteToFile(text,category);
-                 }
+                        text = GetPlainTextFromHtml(text);
+                        text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
+                        WriteToFile(text, category);
+                    }
+                }
+                articles = File.ReadAllLines(path);
+                File.WriteAllText(path, String.Empty);
+
             }
-
-            Console.WriteLine("Hello World!");
         }
-        
+
         private static string GetCategory(string Text)
         {
             string catRegex = "<div class=\"dtyTop\"><div class=\"dTTabs\"><div class=\"kat\"><a href=\"/.*";
@@ -88,7 +90,7 @@ namespace webcrawler
 
         private static void WriteToFile(string Text, string Category)
         {
-            
+
             string path = "Files";
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
