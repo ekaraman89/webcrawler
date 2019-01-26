@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace webcrawler
 {
@@ -13,6 +14,7 @@ namespace webcrawler
             string path = "links.txt";
             string[] articles = File.ReadAllLines(path);
             File.WriteAllText(path, String.Empty);
+            DateTime LastWriteTime = File.GetLastWriteTime(path);
 
             while (true)
             {
@@ -37,8 +39,15 @@ namespace webcrawler
                         WriteToFile(text, category);
                     }
                 }
-                articles = File.ReadAllLines(path);
-                File.WriteAllText(path, String.Empty);
+                Thread.Sleep(2000);
+
+                if (LastWriteTime != File.GetLastWriteTime(path))
+                {
+                    articles = File.ReadAllLines(path);
+                    File.WriteAllText(path, String.Empty);
+                    LastWriteTime = File.GetLastWriteTime(path);
+                }
+
 
             }
         }
