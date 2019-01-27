@@ -15,11 +15,13 @@ namespace webcrawler
             string[] articles = File.ReadAllLines(path);
             File.WriteAllText(path, String.Empty);
             DateTime LastWriteTime = File.GetLastWriteTime(path);
-
+            Console.WriteLine("Linkler okundu işlem başlatılıyor...");
+            bool flag = false;
             while (true)
             {
                 foreach (var item in articles)
                 {
+                    flag = true;
                     string text = null;
                     try
                     {
@@ -39,10 +41,20 @@ namespace webcrawler
                         WriteToFile(text, category);
                     }
                 }
+                if (flag)
+                {
+                    Console.WriteLine("Bütün linkler başarıyla işletildi.");
+                    flag=false;
+                }
+                else
+                {
+                    GC.Collect();
+                }
                 Thread.Sleep(2000);
-
+                articles = new string[] { };
                 if (LastWriteTime != File.GetLastWriteTime(path))
                 {
+                    Console.WriteLine("Yeni linkler algılandı...");                    
                     articles = File.ReadAllLines(path);
                     File.WriteAllText(path, String.Empty);
                     LastWriteTime = File.GetLastWriteTime(path);
