@@ -11,7 +11,11 @@ namespace webcrawler
         static void Main(string[] args)
         {
 
-            string path = "links.txt";
+            string path = AppDomain.CurrentDomain.BaseDirectory+"links.txt";
+            if (!File.Exists(path))
+            {
+                 File.WriteAllText(path, String.Empty);
+            }
             string[] articles = File.ReadAllLines(path);
             File.WriteAllText(path, String.Empty);
             DateTime LastWriteTime = File.GetLastWriteTime(path);
