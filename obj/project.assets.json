@@ -2,13 +2,13 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "Microsoft.NETCore.App/2.1.0-preview2-26406-04": {
+      "Microsoft.NETCore.App/2.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.DotNetHostPolicy": "2.1.0-preview2-26406-04",
-          "Microsoft.NETCore.Platforms": "2.1.0-preview2-26406-04",
-          "Microsoft.NETCore.Targets": "2.1.0-preview2-26406-04",
-          "NETStandard.Library": "2.0.1"
+          "Microsoft.NETCore.DotNetHostPolicy": "2.1.0",
+          "Microsoft.NETCore.Platforms": "2.1.0",
+          "Microsoft.NETCore.Targets": "2.1.0",
+          "NETStandard.Library": "2.0.3"
         },
         "compile": {
           "ref/netcoreapp2.1/Microsoft.CSharp.dll": {},
@@ -160,22 +160,22 @@
           "build/netcoreapp2.1/Microsoft.NETCore.App.targets": {}
         }
       },
-      "Microsoft.NETCore.DotNetAppHost/2.1.0-preview2-26406-04": {
+      "Microsoft.NETCore.DotNetAppHost/2.1.0": {
         "type": "package"
       },
-      "Microsoft.NETCore.DotNetHostPolicy/2.1.0-preview2-26406-04": {
+      "Microsoft.NETCore.DotNetHostPolicy/2.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.DotNetHostResolver": "2.1.0-preview2-26406-04"
+          "Microsoft.NETCore.DotNetHostResolver": "2.1.0"
         }
       },
-      "Microsoft.NETCore.DotNetHostResolver/2.1.0-preview2-26406-04": {
+      "Microsoft.NETCore.DotNetHostResolver/2.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.DotNetAppHost": "2.1.0-preview2-26406-04"
+          "Microsoft.NETCore.DotNetAppHost": "2.1.0"
         }
       },
-      "Microsoft.NETCore.Platforms/2.1.0-preview2-26406-04": {
+      "Microsoft.NETCore.Platforms/2.1.0": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -184,7 +184,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/2.1.0-preview2-26406-04": {
+      "Microsoft.NETCore.Targets/2.1.0": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -193,7 +193,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "NETStandard.Library/2.0.1": {
+      "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -211,18 +211,20 @@
     }
   },
   "libraries": {
-    "Microsoft.NETCore.App/2.1.0-preview2-26406-04": {
-      "sha512": "DuKpI7h85td1/OCZai6z8R6mBO7yHaCBEEVhDhjqg1u5l/ay4GKnqlnLS61BF0FXkIHNuw6ygCc2unlZfbeMlA==",
+    "Microsoft.NETCore.App/2.1.0": {
+      "sha512": "JNHhG+j5eIhG26+H721IDmwswGUznTwwSuJMFe/08h0X2YarHvA15sVAvUkA/2Sp3W0ENNm48t+J7KTPRqEpfA==",
       "type": "package",
-      "path": "microsoft.netcore.app/2.1.0-preview2-26406-04",
+      "path": "microsoft.netcore.app/2.1.0",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "Microsoft.NETCore.App.versions.txt",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netcoreapp2.1/Microsoft.NETCore.App.PlatformManifest.txt",
         "build/netcoreapp2.1/Microsoft.NETCore.App.props",
         "build/netcoreapp2.1/Microsoft.NETCore.App.targets",
-        "microsoft.netcore.app.2.1.0-preview2-26406-04.nupkg.sha512",
+        "microsoft.netcore.app.2.1.0.nupkg.sha512",
         "microsoft.netcore.app.nuspec",
         "ref/netcoreapp/_._",
         "ref/netcoreapp2.1/Microsoft.CSharp.dll",
@@ -475,80 +477,90 @@
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.DotNetAppHost/2.1.0-preview2-26406-04": {
-      "sha512": "rfq7ebJg1ln0PF+B96ZL4DlPs5eq2gxuwdtY/t4enNSepTYgcdLacTzown+PyAEKkGNQJEI6XKAPBqW+QBvYMg==",
+    "Microsoft.NETCore.DotNetAppHost/2.1.0": {
+      "sha512": "vMn8V3GOp/SPOG2oE8WxswzAWZ/GZmc8EPiB3vc2EZ6us14ehXhsvUFXndYopGNSjCa9OdqC6L6xStF1KyUZnw==",
       "type": "package",
-      "path": "microsoft.netcore.dotnetapphost/2.1.0-preview2-26406-04",
+      "path": "microsoft.netcore.dotnetapphost/2.1.0",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "microsoft.netcore.dotnetapphost.2.1.0-preview2-26406-04.nupkg.sha512",
+        "microsoft.netcore.dotnetapphost.2.1.0.nupkg.sha512",
         "microsoft.netcore.dotnetapphost.nuspec",
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.DotNetHostPolicy/2.1.0-preview2-26406-04": {
-      "sha512": "7LjpjkLHmN7k7X5O2xcRVcbYUT/SNaZd4hftw4kud8paQYFLmIkoMKbmYMgxqTE/EqFWXi/cVmwyZhHNbnGcxA==",
+    "Microsoft.NETCore.DotNetHostPolicy/2.1.0": {
+      "sha512": "vBUwNihtLUVS2HhO6WocYfAktRmfFihm6JB8/sJ53caVW+AelvbnYpfiGzaZDpkWjN6vA3xzOKPu9Vu8Zz3p8Q==",
       "type": "package",
-      "path": "microsoft.netcore.dotnethostpolicy/2.1.0-preview2-26406-04",
+      "path": "microsoft.netcore.dotnethostpolicy/2.1.0",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "microsoft.netcore.dotnethostpolicy.2.1.0-preview2-26406-04.nupkg.sha512",
+        "microsoft.netcore.dotnethostpolicy.2.1.0.nupkg.sha512",
         "microsoft.netcore.dotnethostpolicy.nuspec",
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.DotNetHostResolver/2.1.0-preview2-26406-04": {
-      "sha512": "MlAPWqHXcK50vuIYxF21YAtrNOCmaajQjV6+SH9jxPSVAF9HnsKZ1RG29EaY5WJatO6P2riXksKal7kOaM5Qig==",
+    "Microsoft.NETCore.DotNetHostResolver/2.1.0": {
+      "sha512": "o0PRql5qOHFEY3d1WvzE+T7cMFKtOsWLMg8L1oTeGNnI4u5AzOj8o6AdZT3y2GxFA1DAx7AQ9qZjpCO2/bgZRw==",
       "type": "package",
-      "path": "microsoft.netcore.dotnethostresolver/2.1.0-preview2-26406-04",
+      "path": "microsoft.netcore.dotnethostresolver/2.1.0",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "microsoft.netcore.dotnethostresolver.2.1.0-preview2-26406-04.nupkg.sha512",
+        "microsoft.netcore.dotnethostresolver.2.1.0.nupkg.sha512",
         "microsoft.netcore.dotnethostresolver.nuspec",
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.Platforms/2.1.0-preview2-26406-04": {
-      "sha512": "lGrQ17imLk/vVg/BneVtmFYA84nwn7I+hJdRtX5dd7PQ+XCdOZZxP2FLXrwDpGakUyMRsy3C1yDI5cDMc8ltEQ==",
+    "Microsoft.NETCore.Platforms/2.1.0": {
+      "sha512": "ok+RPAtESz/9MUXeIEz6Lv5XAGQsaNmEYXMsgVALj4D7kqC8gveKWXWXbufLySR2fWrwZf8smyN5RmHu0e4BHA==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/2.1.0-preview2-26406-04",
+      "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.2.1.0-preview2-26406-04.nupkg.sha512",
+        "microsoft.netcore.platforms.2.1.0.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
         "runtime.json",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
     },
-    "Microsoft.NETCore.Targets/2.1.0-preview2-26406-04": {
-      "sha512": "1GU9N0IY0vomNMrjv1XY3jrm7W/zTyIOaSDPwTVOmh5y6AGQyAHCWw0AjS9pxsWFYHCx4ygq8fMo6PWsyCl5RQ==",
+    "Microsoft.NETCore.Targets/2.1.0": {
+      "sha512": "x188gIZXOwFXkPXyGavEcPGcR6RGvjFOES2QzskN4gERZjWPN34qhRsZVMC0CLJfQLGSButarcgWxPPM4vmg0w==",
       "type": "package",
-      "path": "microsoft.netcore.targets/2.1.0-preview2-26406-04",
+      "path": "microsoft.netcore.targets/2.1.0",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.targets.2.1.0-preview2-26406-04.nupkg.sha512",
+        "microsoft.netcore.targets.2.1.0.nupkg.sha512",
         "microsoft.netcore.targets.nuspec",
         "runtime.json",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
     },
-    "NETStandard.Library/2.0.1": {
-      "sha512": "oA6nwv9MhEKYvLpjZ0ggSpb1g4CQViDVQjLUcDWg598jtvJbpfeP2reqwI1GLW2TbxC/Ml7xL6BBR1HmKPXlTg==",
+    "NETStandard.Library/2.0.3": {
+      "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
-      "path": "netstandard.library/2.0.1",
+      "path": "netstandard.library/2.0.3",
       "files": [
+        ".nupkg.metadata",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "build/NETStandard.Library.targets",
         "build/netstandard2.0/NETStandard.Library.targets",
         "build/netstandard2.0/ref/Microsoft.Win32.Primitives.dll",
         "build/netstandard2.0/ref/System.AppContext.dll",
@@ -665,34 +677,34 @@
         "build/netstandard2.0/ref/netstandard.dll",
         "build/netstandard2.0/ref/netstandard.xml",
         "lib/netstandard1.0/_._",
-        "netstandard.library.2.0.1.nupkg.sha512",
+        "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Microsoft.NETCore.App >= 2.1.0-preview2-26406-04"
+      "Microsoft.NETCore.App >= 2.1.0"
     ]
   },
   "packageFolders": {
-    "/home/emrah/.nuget/packages/": {},
-    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\emrah\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/emrah/Masaüstü/webcrawler/webcrawler.csproj",
+      "projectUniqueName": "C:\\Users\\emrah\\Desktop\\webcrawler\\webcrawler.csproj",
       "projectName": "webcrawler",
-      "projectPath": "/home/emrah/Masaüstü/webcrawler/webcrawler.csproj",
-      "packagesPath": "/home/emrah/.nuget/packages/",
-      "outputPath": "/home/emrah/Masaüstü/webcrawler/obj/",
+      "projectPath": "C:\\Users\\emrah\\Desktop\\webcrawler\\webcrawler.csproj",
+      "packagesPath": "C:\\Users\\emrah\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\emrah\\Desktop\\webcrawler\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/emrah/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\emrah\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
@@ -715,8 +727,9 @@
       "netcoreapp2.1": {
         "dependencies": {
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
-            "version": "[2.1.0-preview2-26406-04, )",
+            "version": "[2.1.0, )",
             "autoReferenced": true
           }
         },
