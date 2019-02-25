@@ -350,3 +350,4 @@ healthchecksdb
 */**/bin/Release
 */**/obj/Debug
 */**/obj/Release
+obj/Debug/netcoreapp2.1/webcrawler.assets.cache
