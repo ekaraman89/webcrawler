@@ -8,13 +8,14 @@ namespace webcrawler
 {
     class Program
     {
+        static readonly string[] categories = { "SİYASET", "GÜNDEM", "EKONOMİ", "DÜNYA" };
         static void Main(string[] args)
         {
 
-            string path = AppDomain.CurrentDomain.BaseDirectory+"links.txt";
+            string path = AppDomain.CurrentDomain.BaseDirectory + "links.txt";
             if (!File.Exists(path))
             {
-                 File.WriteAllText(path, String.Empty);
+                File.WriteAllText(path, String.Empty);
             }
             string[] articles = File.ReadAllLines(path);
             File.WriteAllText(path, String.Empty);
@@ -39,16 +40,18 @@ namespace webcrawler
                     if (!string.IsNullOrWhiteSpace(text))
                     {
                         string category = GetCategory(text);
-
-                        text = GetPlainTextFromHtml(text);
-                        text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
-                        WriteToFile(text, category);
+                        if (Array.IndexOf(categories, category) != -1)
+                        {
+                            text = GetPlainTextFromHtml(text);
+                            text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
+                            WriteToFile(text, category);
+                        }
                     }
                 }
                 if (flag)
                 {
                     Console.WriteLine("Bütün linkler başarıyla işletildi.");
-                    flag=false;
+                    flag = false;
                 }
                 else
                 {
@@ -58,13 +61,11 @@ namespace webcrawler
                 articles = new string[] { };
                 if (LastWriteTime != File.GetLastWriteTime(path))
                 {
-                    Console.WriteLine("Yeni linkler algılandı...");                    
+                    Console.WriteLine("Yeni linkler algılandı...");
                     articles = File.ReadAllLines(path);
                     File.WriteAllText(path, String.Empty);
                     LastWriteTime = File.GetLastWriteTime(path);
                 }
-
-
             }
         }
 
@@ -130,7 +131,7 @@ namespace webcrawler
         {
             Arff arff = new Arff(Description, Path, FileName);
             arff.AddAttribute("Text", Arff.ArffType.String);
-            arff.AddAttribute(new string[] { "SİYASET", "GÜNDEM", "EKONOMİ", "DÜNYA" });
+            arff.AddAttribute(categories);
             arff.AddData(new string[] { TextData, Category });
         }
 
