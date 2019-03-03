@@ -352,3 +352,8 @@ healthchecksdb
 */**/obj/Release
 obj/Debug/netcoreapp2.1/webcrawler.assets.cache
 obj/Debug/netcoreapp2.1/webcrawler.assets.cache
+
+# Special File
+Files/
+Original.txt
+links.txt
