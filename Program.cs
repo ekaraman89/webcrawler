@@ -14,49 +14,17 @@ namespace webcrawler
 
             string path = AppDomain.CurrentDomain.BaseDirectory + "links.txt";
             if (!File.Exists(path))
-            {
                 File.WriteAllText(path, String.Empty);
-            }
+
             string[] articles = File.ReadAllLines(path);
             File.WriteAllText(path, String.Empty);
             DateTime LastWriteTime = File.GetLastWriteTime(path);
             Console.WriteLine("Linkler okundu işlem başlatılıyor...");
-            bool flag = false;
+
             while (true)
             {
-                foreach (var item in articles)
-                {
-                    flag = true;
-                    string text = null;
-                    try
-                    {
-                        text = GetResponse(item.Trim());
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
+                toWork(articles);
 
-                    if (!string.IsNullOrWhiteSpace(text))
-                    {
-                        string category = GetCategory(text);
-                        if (Array.IndexOf(categories, category) != -1)
-                        {
-                            text = GetPlainTextFromHtml(text);
-                            text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
-                            WriteToFile(text, category);
-                        }
-                    }
-                }
-                if (flag)
-                {
-                    Console.WriteLine("Bütün linkler başarıyla işletildi.");
-                    flag = false;
-                }
-                else
-                {
-                    GC.Collect();
-                }
                 Thread.Sleep(2000);
                 articles = new string[] { };
                 if (LastWriteTime != File.GetLastWriteTime(path))
@@ -68,7 +36,45 @@ namespace webcrawler
                 }
             }
         }
+        
+        private static void toWork(string[] articles)
+        {
+            int count = articles.Length;
+            if (count > 0)
+            {
+                using (var progress = new ProgressBar())
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        string text = null;
+                        try
+                        {
+                            text = GetResponse(articles[i].Trim());
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
 
+                        if (!string.IsNullOrWhiteSpace(text))
+                        {
+                            string category = GetCategory(text);
+                            if (Array.IndexOf(categories, category) != -1)
+                            {
+                                text = GetPlainTextFromHtml(text);
+                                text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
+                                WriteToFile(text, category);
+                            }
+                        }
+
+                        progress.Report((double)i / 100);
+                        Thread.Sleep(20);
+                    }
+                }
+                Console.WriteLine("Bütün linkler başarıyla işletildi.\n\n\n\n");
+            }
+        }
+        
         private static string GetCategory(string Text)
         {
             string catRegex = "<div class=\"dtyTop\"><div class=\"dTTabs\"><div class=\"kat\"><a href=\"/.*";
@@ -142,7 +148,5 @@ namespace webcrawler
                 sw.WriteLine(Text);
             }
         }
-
-
     }
 }
