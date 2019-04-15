@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace webcrawler
 {
@@ -11,7 +14,7 @@ namespace webcrawler
         static readonly string[] categories = { "SİYASET", "GÜNDEM", "EKONOMİ", "DÜNYA" };
         static void Main(string[] args)
         {
-
+            //GetHurriyetNews(); 
             string path = AppDomain.CurrentDomain.BaseDirectory + "links.txt";
             if (!File.Exists(path))
                 File.WriteAllText(path, String.Empty);
@@ -37,6 +40,25 @@ namespace webcrawler
             }
         }
         
+private static void GetHurriyetNews()
+{
+        string url = @"https://api.hurriyet.com.tr/v1/columns/41183325";
+
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+        request.Headers.Add("apikey","c1050c5858b947939f7776db06d37542");
+        request.Headers.Add("Content-Type","text/html; charset=utf-8");
+
+        request.AutomaticDecompression = DecompressionMethods.GZip;
+
+        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+        using (Stream stream = response.GetResponseStream())
+        using (StreamReader reader = new StreamReader(stream))
+        {
+            dynamic d = JObject.Parse( reader.ReadToEnd());
+            string text =d.Text;
+            WriteToFile(GetPlainTextFromHtml(text),"?");
+        }
+}
         private static void toWork(string[] articles)
         {
             int count = articles.Length;
