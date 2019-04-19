@@ -99,14 +99,14 @@ namespace webcrawler
             foreach (char c in s)
                 switch (c)
                 {
-                    case '"':
+                   /*  case '"':
                         stringBuilder.Append("\\\"");
                         quote = true;
                         break;
                     case '\'':
-                        stringBuilder.Append("\\'");
-                        quote = true;
-                        break;
+                         stringBuilder.Append("\\'");
+                         quote = true;
+                         break;*/
                     case '%':
                         stringBuilder.Append("\\%");
                         quote = true;
