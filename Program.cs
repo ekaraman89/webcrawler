@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace webcrawler
 {
@@ -152,7 +149,7 @@ namespace webcrawler
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             string description = "Makale kategorisi bulma";
-            Text = Text.Replace("\r", "").Replace("\n","");
+            Text = Regex.Replace(Text, @"\t|\n|\r", "");
             CreateFile("Original.txt", Text);
             CreateArffFile(description, path, "Original", Text, Category);
             CreateArffFile(description, path, "WithoutStopWordOriginal", StopwordTool.RemoveStopwords(Text), Category);
