@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Newtonsoft.Json;
@@ -39,26 +40,7 @@ namespace webcrawler
                 }
             }
         }
-        
-private static void GetHurriyetNews()
-{
-        string url = @"https://api.hurriyet.com.tr/v1/columns/41183325";
 
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-        request.Headers.Add("apikey","c1050c5858b947939f7776db06d37542");
-        request.Headers.Add("Content-Type","text/html; charset=utf-8");
-
-        request.AutomaticDecompression = DecompressionMethods.GZip;
-
-        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-        using (Stream stream = response.GetResponseStream())
-        using (StreamReader reader = new StreamReader(stream))
-        {
-            dynamic d = JObject.Parse( reader.ReadToEnd());
-            string text =d.Text;
-            WriteToFile(GetPlainTextFromHtml(text),"?");
-        }
-}
         private static void toWork(string[] articles)
         {
             int count = articles.Length;
@@ -80,13 +62,30 @@ private static void GetHurriyetNews()
 
                         if (!string.IsNullOrWhiteSpace(text))
                         {
-                            string category = GetCategory(text);
-                            if (Array.IndexOf(categories, category) != -1)
+                            //string category = GetCategory(text);
+                            text = GetPlainTextFromHtml(text);
+
+                            if (articles[i].IndexOf("milliyet.com.tr") != -1)
                             {
-                                text = GetPlainTextFromHtml(text);
                                 text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
-                                WriteToFile(text, category);
                             }
+                            else if (articles[i].IndexOf("hurriyet.com.tr") != -1)
+                            {
+                                text = Crop(text, "Yorum yaz", "PAYLAŞ");
+                            }
+                            else if (articles[i].IndexOf("sozcu.com.tr") != -1)
+                            {
+                                text = Crop(text, "more", "social-facebook");
+                            }
+                            else if (articles[i].IndexOf("haberturk.com") != -1)
+                            {
+                                text = Crop(text, "    \r\n", "Değerli Haberturk.com okurları");
+                            }
+                            else if (articles[i].IndexOf("sabah.com.tr") != -1)
+                            {
+                                text = Crop(text, "Yükleniyor...", "\r\n            Yasal Uyarı:");
+                            }
+                            WriteToFile(text, "?");
                         }
 
                         progress.Report((double)i / 100);
@@ -96,11 +95,11 @@ private static void GetHurriyetNews()
                 Console.WriteLine("Bütün linkler başarıyla işletildi.\n\n\n\n");
             }
         }
-        
+
         private static string GetCategory(string Text)
         {
             string catRegex = "<div class=\"dtyTop\"><div class=\"dTTabs\"><div class=\"kat\"><a href=\"/.*";
-            string Category = "Diğer";
+            string Category = "?";
             foreach (Match item in Regex.Matches(Text, catRegex))
             {
                 Category = Crop(item.Value, "/\">", "</a></div></div></div>");
@@ -125,9 +124,13 @@ private static void GetHurriyetNews()
         {
             WebRequest webRequest = HttpWebRequest.Create(url);
             WebResponse webResponse = webRequest.GetResponse();
-            StreamReader streamReader = new StreamReader(webResponse.GetResponseStream());
 
-            return streamReader.ReadToEnd();
+            using (Stream stream = webResponse.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                return reader.ReadToEnd();
+            }
+
         }
 
         private static string GetPlainTextFromHtml(string htmlString)
@@ -149,7 +152,7 @@ private static void GetHurriyetNews()
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             string description = "Makale kategorisi bulma";
-
+            Text = Text.Replace("\r", "").Replace("\n","");
             CreateFile("Original.txt", Text);
             CreateArffFile(description, path, "Original", Text, Category);
             CreateArffFile(description, path, "WithoutStopWordOriginal", StopwordTool.RemoveStopwords(Text), Category);
@@ -165,7 +168,7 @@ private static void GetHurriyetNews()
 
         private static void CreateFile(string FileName, string Text)
         {
-            using (StreamWriter sw = new StreamWriter(FileName, true))
+            using (StreamWriter sw = new StreamWriter(FileName, true, System.Text.Encoding.UTF8))
             {
                 sw.WriteLine(Text);
             }
