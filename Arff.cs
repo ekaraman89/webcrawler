@@ -90,7 +90,7 @@ namespace webcrawler
             if (s == string.Empty)
                 return "''";
             if (s == "?")
-                return "'?'";
+                return "?";
 
             StringBuilder stringBuilder = new StringBuilder(s.Length + 2);
 
@@ -99,14 +99,14 @@ namespace webcrawler
             foreach (char c in s)
                 switch (c)
                 {
-                   /*  case '"':
-                        stringBuilder.Append("\\\"");
+                     case '"':
+                        stringBuilder.Append("“");
                         quote = true;
                         break;
                     case '\'':
-                         stringBuilder.Append("\\'");
+                         stringBuilder.Append("’");
                          quote = true;
-                         break;*/
+                         break;
                     case '%':
                         stringBuilder.Append("\\%");
                         quote = true;
