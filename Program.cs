@@ -9,7 +9,7 @@ namespace webcrawler
 {
     class Program
     {
-        static readonly string[] categories = { "SİYASET", "GÜNDEM", "EKONOMİ", "DÜNYA" };
+        static readonly string[] categories = { "SIYASET", "GUNDEM", "EKONOMI", "DUNYA" };
         static void Main(string[] args)
         {
             //GetHurriyetNews(); 
@@ -60,7 +60,7 @@ namespace webcrawler
                         if (!string.IsNullOrWhiteSpace(text))
                         {
                             //string category = GetCategory(text);
-                            text = GetPlainTextFromHtml(text);
+                            text = ConvertToTurkish(GetPlainTextFromHtml(text));
 
                             if (articles[i].IndexOf("milliyet.com.tr") != -1)
                             {
@@ -68,7 +68,30 @@ namespace webcrawler
                             }
                             else if (articles[i].IndexOf("hurriyet.com.tr") != -1)
                             {
-                                text = Crop(text, "Yorum yaz", "PAYLAŞ");
+                                //spor
+                                if (articles[i].IndexOf("http://www.hurriyet.com.tr/sporarena/") != -1)
+                                {
+                                    string mail = GetMailAdress(text);
+                                    if (!string.IsNullOrWhiteSpace(mail))
+                                    {
+                                        text = Crop(text, mail, "PAYLAŞ");
+                                        text = Crop(text, mail, mail);
+                                    }
+                                    else
+                                    {
+                                        string auther = string.Empty;
+                                        int index = text.IndexOf("MENÜHÜRRİYET.COM.TR");
+                                        while (text[--index] != '-')
+                                        {
+                                            auther = auther.Insert(0, text[index].ToString());
+                                        }
+                                        text = Crop(text, $"Tipi{auther.Trim()} ", $"{auther.Trim()} YazdırAYazı");
+                                    }
+                                }
+                                else
+                                {
+                                    text = Crop(text, "Yorum yaz", "PAYLAŞ");
+                                }
                             }
                             else if (articles[i].IndexOf("sozcu.com.tr") != -1)
                             {
@@ -170,5 +193,43 @@ namespace webcrawler
                 sw.WriteLine(Text);
             }
         }
+
+        private static string GetMailAdress(string text)
+        {
+            const string MatchEmailPattern =
+           @"(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
+           + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\."
+           + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+           + @"([a-zA-Z]+[\w-]+\.)+[a-zA-Z]{2,4})";
+            Regex rx = new Regex(MatchEmailPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            MatchCollection matches = rx.Matches(text);
+            int noOfMatches = matches.Count;
+            String mailadress = string.Empty;
+            foreach (Match match in matches)
+            {
+                mailadress = match.Value.ToString();
+                return (mailadress[mailadress.Length - 1] == 'Y') ? mailadress.Remove(mailadress.Length - 1) : mailadress.Remove(mailadress.Length - 2);
+            }
+            return mailadress;
+        }
+
+        private static String ConvertToTurkish(string text)
+        {
+            text = text.Replace("&#252;", "ü")
+                        .Replace("&#220;", "Ü")
+                        .Replace("&#199;", "Ç")
+                        .Replace("&#231;", "ç")
+                        .Replace("&#246;", "ö")
+                        .Replace("&#214;", "Ö")
+                        .Replace("&#286;", "Ğ")
+                        .Replace("&#287;", "ğ")
+                        .Replace("&#304;", "İ")
+                        .Replace("&#305;", "ı")
+                        .Replace("&#351;", "ş")
+                        .Replace("&#350;", "Ş");
+
+            return text;
+        }
+
     }
 }
