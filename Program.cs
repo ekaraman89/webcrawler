@@ -90,7 +90,7 @@ namespace webcrawler
                                 }
                                 else
                                 {
-                                    text = Crop(text, "Yorum yaz", "PAYLAŞ");
+                                    text = Crop(text, "Yorum yazA", "PAYLAŞ");
                                 }
                             }
                             else if (articles[i].IndexOf("sozcu.com.tr") != -1)
