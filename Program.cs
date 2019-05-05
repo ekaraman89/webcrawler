@@ -116,7 +116,7 @@ namespace webcrawler
                             else if (articles[i].IndexOf("haberturk.com") != -1)
                             {
                                 title = Crop(text, " - ", " - ");
-                                writer = Crop(text, "", " - ");
+                                writer = Crop(articles[i], "yazarlar/", "/");
                                 text = Crop(text, "    \r\n", "Değerli Haberturk.com okurları");
                             }
                             else if (articles[i].IndexOf("sabah.com.tr") != -1)
