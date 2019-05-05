@@ -43,6 +43,12 @@ namespace webcrawler
             int count = articles.Length;
             if (count > 0)
             {
+
+                string lockFile = "lock.txt";
+                using (var file = File.Create(lockFile))
+                {
+                  File.SetAttributes(lockFile, FileAttributes.Hidden);
+                }
                 using (var progress = new ProgressBar())
                 {
                     for (int i = 0; i < count; i++)
@@ -112,6 +118,7 @@ namespace webcrawler
                         Thread.Sleep(20);
                     }
                 }
+                File.Delete(lockFile);
                 Console.WriteLine("Bütün linkler başarıyla işletildi.\n\n\n\n");
             }
         }
