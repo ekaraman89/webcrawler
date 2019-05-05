@@ -181,7 +181,8 @@ namespace webcrawler
             var regexCss = new Regex("(\\<script(.+?)\\</script\\>)|(\\<style(.+?)\\</style\\>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             htmlString = regexCss.Replace(htmlString, string.Empty);
             htmlString = Regex.Replace(htmlString, htmlTagPattern, string.Empty);
-            htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+            htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+            htmlString = Regex.Replace(htmlString, @"&#\w+;", string.Empty, RegexOptions.Multiline);
             htmlString = htmlString.Replace("&nbsp;", string.Empty);
 
             return htmlString;
@@ -189,7 +190,6 @@ namespace webcrawler
 
         private static void WriteToFile(string Text, string Category, string prefix)
         {
-
             string path = "Files";
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
