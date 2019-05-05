@@ -28,7 +28,7 @@ namespace webcrawler
 
                 Thread.Sleep(2000);
                 articles = new string[] { };
-                if (LastWriteTime != File.GetLastWriteTime(path))
+                if (LastWriteTime != File.GetLastWriteTime(path) && !(File.Exists("lockjava.txt")))
                 {
                     Console.WriteLine("Yeni linkler algılandı...");
                     articles = File.ReadAllLines(path);
@@ -47,7 +47,7 @@ namespace webcrawler
                 string lockFile = "lock.txt";
                 using (var file = File.Create(lockFile))
                 {
-                  File.SetAttributes(lockFile, FileAttributes.Hidden);
+                    File.SetAttributes(lockFile, FileAttributes.Hidden);
                 }
                 using (var progress = new ProgressBar())
                 {
