@@ -45,15 +45,18 @@ namespace webcrawler
             {
 
                 string lockFile = "lock.txt";
-                using (var file = File.Create(lockFile))
-                {
-                    File.SetAttributes(lockFile, FileAttributes.Hidden);
-                }
+                if (!File.Exists(lockFile))
+                    using (var file = File.Create(lockFile))
+                    {
+                        File.SetAttributes(lockFile, FileAttributes.Hidden);
+                    }
                 using (var progress = new ProgressBar())
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        string text = null;
+                        string text = string.Empty;
+                        string title = string.Empty;
+                        string writer = string.Empty;
                         try
                         {
                             text = GetResponse(articles[i].Trim());
@@ -70,10 +73,15 @@ namespace webcrawler
 
                             if (articles[i].IndexOf("milliyet.com.tr") != -1)
                             {
+                                title = Crop(text, "\t", "\r\n<img height=");
+                                writer = Crop(articles[i], "yazarlar/", "/");
                                 text = Crop(text, "Tüm Yazıları", "Yazarın Diğer Yazıları");
                             }
                             else if (articles[i].IndexOf("hurriyet.com.tr") != -1)
                             {
+                                writer = Crop(articles[i], "yazarlar/", "/");
+                                title = Crop(text, "", " - ");
+
                                 //spor
                                 if (articles[i].IndexOf("http://www.hurriyet.com.tr/sporarena/") != -1)
                                 {
@@ -101,17 +109,24 @@ namespace webcrawler
                             }
                             else if (articles[i].IndexOf("sozcu.com.tr") != -1)
                             {
+                                title = Crop(text, ": ", " – ");
+                                writer = Crop(articles[i], "yazarlar/", "/");
                                 text = Crop(text, "more", "social-facebook");
                             }
                             else if (articles[i].IndexOf("haberturk.com") != -1)
                             {
+                                title = Crop(text, " - ", " - ");
+                                writer = Crop(text, "", " - ");
                                 text = Crop(text, "    \r\n", "Değerli Haberturk.com okurları");
                             }
                             else if (articles[i].IndexOf("sabah.com.tr") != -1)
                             {
+                                title = Crop(text, "", " - ");
+                                writer = Crop(articles[i], "yazarlar/", "/");
                                 text = Crop(text, "Yükleniyor...", "\r\n            Yasal Uyarı:");
                             }
-                            WriteToFile(text, "?");
+                            string prefix = $"{writer}_@_{title}_@_";
+                            WriteToFile(text, "?", prefix);
                         }
 
                         progress.Report((double)i / 100);
@@ -172,7 +187,7 @@ namespace webcrawler
             return htmlString;
         }
 
-        private static void WriteToFile(string Text, string Category)
+        private static void WriteToFile(string Text, string Category, string prefix)
         {
 
             string path = "Files";
@@ -180,7 +195,7 @@ namespace webcrawler
 
             string description = "Makale kategorisi bulma";
             Text = Regex.Replace(Text, @"\t|\n|\r", "");
-            CreateFile("Original.txt", Text);
+            CreateFile("Original.txt", $"{prefix}{Text}");
             CreateArffFile(description, path, "Original", Text, Category);
             CreateArffFile(description, path, "WithoutStopWordOriginal", StopwordTool.RemoveStopwords(Text), Category);
         }
